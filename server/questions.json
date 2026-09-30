@@ -1,0 +1,525 @@
+[
+  {
+    "id": "q1",
+    "subject": "Computer Networks & Protocols",
+    "question": "Which OSI layer is responsible for end-to-end communication, flow control, error detection, and port addressing?",
+    "options": [
+      "Network Layer",
+      "Transport Layer",
+      "Data Link Layer",
+      "Session Layer"
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "The Transport Layer (Layer 4) handles end-to-end communication, segmenting data, flow control (TCP windowing), error recovery, and port addressing (TCP/UDP)."
+  },
+  {
+    "id": "q2",
+    "subject": "Data Structures & Algorithms",
+    "question": "What is the worst-case time complexity of searching for an element in an unaugmented Binary Search Tree (BST) of n elements?",
+    "options": [
+      "O(1)",
+      "O(log n)",
+      "O(n)",
+      "O(n log n)"
+    ],
+    "correctOptionIndex": 2,
+    "explanation": "If a BST becomes skewed (like a degenerate singly-linked list when elements are inserted in sorted order), the search depth is n, yielding O(n) worst-case time complexity."
+  },
+  {
+    "id": "q3",
+    "subject": "Operating Systems",
+    "question": "Which of the following conditions is NOT one of Coffman's four necessary conditions for deadlock to occur?",
+    "options": [
+      "Mutual Exclusion",
+      "Hold and Wait",
+      "Preemption Permitted",
+      "Circular Wait"
+    ],
+    "correctOptionIndex": 2,
+    "explanation": "The four Coffman conditions are Mutual Exclusion, Hold and Wait, No Preemption, and Circular Wait. If preemption is permitted, deadlock cannot persist."
+  },
+  {
+    "id": "q4",
+    "subject": "Database Management Systems",
+    "question": "In ACID properties of transaction management, what does the 'I' represent and what guarantee does it provide?",
+    "options": [
+      "Integrity: ensures constraints like primary keys are never violated",
+      "Indexability: ensures fast B-tree lookup on indexed columns",
+      "Isolation: ensures concurrently executing transactions do not interfere with each other",
+      "Immutability: ensures written logs cannot be altered by users"
+    ],
+    "correctOptionIndex": 2,
+    "explanation": "Isolation guarantees that multiple transactions can execute concurrently without leading to state inconsistency, simulating serial execution."
+  },
+  {
+    "id": "q5",
+    "subject": "JavaScript & Modern Web",
+    "question": "What is the output of the following JavaScript expression: typeof (NaN === NaN)?",
+    "codeSnippet": "console.log(typeof (NaN === NaN));",
+    "options": [
+      "\"number\"",
+      "\"boolean\"",
+      "\"undefined\"",
+      "\"object\""
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "NaN is never equal to anything, not even itself; hence (NaN === NaN) evaluates to false. The typeof false is the string \"boolean\"."
+  },
+  {
+    "id": "q6",
+    "subject": "Computer Architecture",
+    "question": "Which cache mapping technique allows a block of main memory to be placed in any cache line without restriction?",
+    "options": [
+      "Direct Mapped Cache",
+      "Fully Associative Cache",
+      "Set-Associative Cache",
+      "Sector Mapped Cache"
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "In a Fully Associative Cache, any memory block can reside in any cache slot, eliminating conflict misses at the expense of needing associative search hardware."
+  },
+  {
+    "id": "q7",
+    "subject": "Discrete Mathematics & Logic",
+    "question": "What is the contrapositive of the conditional statement: 'If a student is in Offline Mode (P), then Network Auto-Submit is armed (Q)'?",
+    "options": [
+      "If Network Auto-Submit is armed, then the student is in Offline Mode.",
+      "If Network Auto-Submit is NOT armed (~Q), then the student is NOT in Offline Mode (~P).",
+      "If the student is NOT in Offline Mode (~P), then Network Auto-Submit is NOT armed (~Q).",
+      "The student is in Offline Mode if and only if Network Auto-Submit is armed."
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "The contrapositive of P -> Q is ~Q -> ~P ('If not Q, then not P'), which is logically equivalent to the original conditional proposition."
+  },
+  {
+    "id": "q8",
+    "subject": "Software Engineering & Security",
+    "question": "Which cryptographic principle ensures that the sender cannot deny having sent a message that they indeed transmitted?",
+    "options": [
+      "Confidentiality",
+      "Availability",
+      "Non-repudiation",
+      "Obfuscation"
+    ],
+    "correctOptionIndex": 2,
+    "explanation": "Non-repudiation is typically provided using asymmetric digital signatures, proving authorship and preventing the originator from denying transmission."
+  },
+  {
+    "id": "q9",
+    "subject": "Computer Networks & Protocols",
+    "question": "Which protocol resolves a known IPv4 address to its corresponding physical MAC address on a local area network?",
+    "options": [
+      "DNS (Domain Name System)",
+      "DHCP (Dynamic Host Configuration Protocol)",
+      "ARP (Address Resolution Protocol)",
+      "ICMP (Internet Control Message Protocol)"
+    ],
+    "correctOptionIndex": 2,
+    "explanation": "ARP broadcasts a query on the local network segment requesting the hardware MAC address associated with a target IP address."
+  },
+  {
+    "id": "q10",
+    "subject": "Data Structures & Algorithms",
+    "question": "Which data structure is fundamentally utilized to implement Breadth-First Search (BFS) traversal on a graph?",
+    "options": [
+      "Stack (LIFO)",
+      "Queue (FIFO)",
+      "Binary Min-Heap",
+      "Disjoint Set Union (DSU)"
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "Breadth-First Search explores vertices level by level, requiring a FIFO Queue to process vertices in the order they were discovered."
+  },
+  {
+    "id": "q11",
+    "subject": "Operating Systems",
+    "question": "What is the phenomenon called when an operating system spends more time paging data into and out of virtual memory than executing actual instructions?",
+    "options": [
+      "Starvation",
+      "Thrashing",
+      "Aging",
+      "Belady's Anomaly"
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "Thrashing occurs when the collective working sets of active processes exceed available physical RAM, causing continuous page faults and disk I/O bottlenecks."
+  },
+  {
+    "id": "q12",
+    "subject": "Database Management Systems",
+    "question": "Which normal form removes partial dependencies, ensuring that every non-prime attribute is fully functionally dependent on the entire candidate key?",
+    "options": [
+      "First Normal Form (1NF)",
+      "Second Normal Form (2NF)",
+      "Third Normal Form (3NF)",
+      "Boyce-Codd Normal Form (BCNF)"
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "Second Normal Form (2NF) mandates that the table is in 1NF and contains no partial dependencies on composite primary keys."
+  },
+  {
+    "id": "q13",
+    "subject": "JavaScript & Modern Web",
+    "question": "What will be printed to the console when executing the following snippet involving JavaScript closures and event loop?",
+    "codeSnippet": "for (var i = 0; i < 3; i++) {\n  setTimeout(() => console.log(i), 0);\n}",
+    "options": [
+      "0, 1, 2",
+      "3, 3, 3",
+      "undefined, undefined, undefined",
+      "0, 0, 0"
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "Because 'var' is function-scoped rather than block-scoped, all three scheduled timer callbacks share the identical variable 'i', which reaches 3 when the loop terminates."
+  },
+  {
+    "id": "q14",
+    "subject": "Data Structures & Algorithms",
+    "question": "What is the average and worst-case time complexity of the standard QuickSort algorithm with random pivot selection?",
+    "options": [
+      "Average O(n log n), Worst-case O(n log n)",
+      "Average O(n log n), Worst-case O(n^2)",
+      "Average O(n), Worst-case O(n log n)",
+      "Average O(log n), Worst-case O(n)"
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "QuickSort achieves O(n log n) expected time on average, but can degrade to O(n^2) in the worst case if partitions are repeatedly completely unbalanced (e.g. 1 and n-1 elements)."
+  },
+  {
+    "id": "q15",
+    "subject": "Computer Networks & Protocols",
+    "question": "During a standard TCP connection teardown, what is the sequence of control packets exchanged?",
+    "options": [
+      "SYN -> SYN-ACK -> ACK",
+      "FIN -> ACK -> FIN -> ACK",
+      "RST -> FIN -> ACK",
+      "PING -> PONG -> CLOSE"
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "Graceful TCP termination is a four-step handshake: Host A sends FIN, Host B sends ACK; then Host B sends FIN, and Host A replies with ACK."
+  },
+  {
+    "id": "q16",
+    "subject": "Operating Systems",
+    "question": "Which CPU scheduling algorithm is provably optimal in yielding the minimum average waiting time for a given set of stationary processes?",
+    "options": [
+      "First-Come, First-Served (FCFS)",
+      "Shortest Job First (SJF / Shortest Remaining Time First)",
+      "Round Robin with small quantum",
+      "Priority Scheduling with aging"
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "Shortest Job First (SJF) is mathematically optimal because moving a short process before a long process reduces the waiting time of the short process by more than it increases the waiting time of the long process."
+  },
+  {
+    "id": "q17",
+    "subject": "Database Management Systems",
+    "question": "Why are B+ Trees preferred over standard Binary Search Trees or B-Trees for database index storage on disk?",
+    "options": [
+      "B+ Trees store all actual record keys/pointers in leaf nodes linked sequentially, facilitating fast range queries and high fan-out.",
+      "B+ Trees require zero memory locks during concurrent writes.",
+      "B+ Trees have an O(1) worst-case search complexity regardless of tree depth.",
+      "B+ Trees eliminate the need for primary and foreign key constraints."
+    ],
+    "correctOptionIndex": 0,
+    "explanation": "B+ Trees hold all data pointers in sequentially linked leaf nodes, offering broad fan-out (reducing disk I/O seeks) and linear range scan performance."
+  },
+  {
+    "id": "q18",
+    "subject": "Software Engineering & Architecture",
+    "question": "In the SOLID design principles, what does the Liskov Substitution Principle (LSP) dictate?",
+    "options": [
+      "A class should have only one single reason to change.",
+      "Subtypes must be substitutable for their base types without altering program correctness.",
+      "Software entities should be open for extension but closed for modification.",
+      "High-level modules should not depend on low-level modules directly."
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "Liskov Substitution Principle asserts that objects of a superclass should be replaceable with objects of its subclasses without breaking application behavior."
+  },
+  {
+    "id": "q19",
+    "subject": "Aptitude & Quantitative Logic",
+    "question": "If two unbiased standard six-sided dice are rolled simultaneously, what is the probability that the sum of the numbers showing is at least 10?",
+    "options": [
+      "1/6 (6 out of 36)",
+      "1/9 (4 out of 36)",
+      "5/36",
+      "1/12 (3 out of 36)"
+    ],
+    "correctOptionIndex": 0,
+    "explanation": "Outcomes yielding sum >= 10 are: (4,6), (5,5), (5,6), (6,4), (6,5), (6,6) - total of 6 outcomes out of 36 possible outcomes. 6/36 = 1/6."
+  },
+  {
+    "id": "q20",
+    "subject": "Cybersecurity & Cryptography",
+    "question": "What is the primary security objective of adding a unique cryptographic 'salt' to user passwords before hashing them with algorithms like bcrypt or Argon2?",
+    "options": [
+      "To compress the password into exactly 256 bits.",
+      "To prevent precomputed rainbow table and mass collision attacks across identical passwords.",
+      "To allow the server to easily decrypt and recover forgotten passwords.",
+      "To speed up hash evaluation on mobile devices."
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "A salt ensures that even if two users choose identical passwords, their resulting hashes are unique, defending against precomputed rainbow table attacks."
+  },
+  {
+    "id": "q21",
+    "subject": "Data Structures & Algorithms",
+    "question": "In a Max-Heap containing n elements, what is the time complexity of deleting the maximum element (root) and restoring heap properties?",
+    "options": [
+      "O(1)",
+      "O(log n)",
+      "O(n)",
+      "O(n log n)"
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "Deleting the root involves replacing it with the last element and performing 'sift-down' (heapify), which traverses the height of the binary heap in O(log n) time."
+  },
+  {
+    "id": "q22",
+    "subject": "Computer Networks & Protocols",
+    "question": "Which HTTP status code specifically signifies that the client must authenticate themselves to get the requested response (Unauthorized)?",
+    "options": [
+      "400 Bad Request",
+      "401 Unauthorized",
+      "403 Forbidden",
+      "404 Not Found"
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "HTTP 401 Unauthorized indicates that the request requires valid user authentication credentials. 403 Forbidden means credentials were known but access is refused."
+  },
+  {
+    "id": "q23",
+    "subject": "Operating Systems",
+    "question": "What is a 'Spinlock' in synchronization, and when is it most appropriate to use over a mutex or semaphore?",
+    "options": [
+      "A lock where a thread loops continuously checking a flag; ideal when lock holding durations are extremely brief on multiprocessor systems.",
+      "A lock that puts the calling thread into a deep sleep state immediately.",
+      "A lock exclusively reserved for single-core microcontrollers to prevent context switches.",
+      "A lock mechanism designed for distributed database consistency."
+    ],
+    "correctOptionIndex": 0,
+    "explanation": "Spinlocks repeatedly poll the lock state in a tight loop. Because context switching incurs overhead, spinlocks are efficient for very short critical sections on SMP machines."
+  },
+  {
+    "id": "q24",
+    "subject": "JavaScript & Modern Web",
+    "question": "Which method on an Array returns a new array with all sub-array elements concatenated into it recursively up to the specified depth?",
+    "codeSnippet": "const nested = [1, [2, [3, 4]]];\nconst res = nested.flat(2);",
+    "options": [
+      "Array.prototype.concat()",
+      "Array.prototype.reduce()",
+      "Array.prototype.flat()",
+      "Array.prototype.splice()"
+    ],
+    "correctOptionIndex": 2,
+    "explanation": "Array.prototype.flat(depth) creates a flattened array up to the designated depth. Passing 2 flattens both nested levels into [1, 2, 3, 4]."
+  },
+  {
+    "id": "q25",
+    "subject": "Discrete Mathematics & Logic",
+    "question": "How many edges are there in a simple connected planar graph with 6 vertices and 8 faces according to Euler's planar formula (V - E + F = 2)?",
+    "options": [
+      "10",
+      "12",
+      "14",
+      "16"
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "Using Euler's formula V - E + F = 2: 6 - E + 8 = 2 => 14 - E = 2 => E = 12."
+  },
+  {
+    "id": "q26",
+    "subject": "Database Management Systems",
+    "question": "What type of SQL JOIN returns all rows from the left table and matched rows from the right table, filling with NULL where there is no match?",
+    "options": [
+      "INNER JOIN",
+      "LEFT OUTER JOIN",
+      "RIGHT OUTER JOIN",
+      "CROSS JOIN"
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "A LEFT OUTER JOIN retains every record from the left table regardless of whether a matching record exists in the right table."
+  },
+  {
+    "id": "q27",
+    "subject": "Aptitude & Quantitative Logic",
+    "question": "A train running at a uniform speed of 72 km/h crosses a 200-meter-long platform in 22 seconds. What is the length of the train?",
+    "options": [
+      "220 meters",
+      "240 meters",
+      "250 meters",
+      "280 meters"
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "Speed = 72 * (5/18) = 20 m/s. Total distance covered in 22 s = 20 * 22 = 440 m. Total distance = Train Length + Platform Length (200 m). Therefore, Train Length = 440 - 200 = 240 meters."
+  },
+  {
+    "id": "q28",
+    "subject": "Software Engineering & Design Patterns",
+    "question": "Which Gang of Four (GoF) design pattern defines a family of algorithms, encapsulates each one, and makes them interchangeable at runtime?",
+    "options": [
+      "Factory Pattern",
+      "Observer Pattern",
+      "Strategy Pattern",
+      "Decorator Pattern"
+    ],
+    "correctOptionIndex": 2,
+    "explanation": "The Strategy Pattern enables selecting an algorithm's implementation at runtime without coupling the client code to specific algorithms."
+  },
+  {
+    "id": "q29",
+    "subject": "Computer Architecture",
+    "question": "In a 5-stage classic RISC processor pipeline (IF, ID, EX, MEM, WB), what hazard occurs when an instruction depends on the result of a previous instruction that has not yet completed execution?",
+    "options": [
+      "Structural Hazard",
+      "Data Hazard",
+      "Control Hazard",
+      "Branch Misprediction Hazard"
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "A Data Hazard (e.g. Read-After-Write) occurs when instructions that exhibit data dependence overlap in different pipeline stages."
+  },
+  {
+    "id": "q30",
+    "subject": "Computer Networks & Protocols",
+    "question": "What is the maximum payload size (in bytes) of a standard Ethernet frame (MTU) before IP fragmentation occurs?",
+    "options": [
+      "512 bytes",
+      "1024 bytes",
+      "1500 bytes",
+      "65535 bytes"
+    ],
+    "correctOptionIndex": 2,
+    "explanation": "The standard Maximum Transmission Unit (MTU) for Ethernet is 1500 bytes. Packets exceeding this size must be fragmented unless Jumbo Frames are configured."
+  },
+  {
+    "id": "q31",
+    "subject": "Data Structures & Algorithms",
+    "question": "What is the amortized time complexity of inserting an element into a dynamic array (like std::vector or ArrayList) that doubles capacity when full?",
+    "options": [
+      "O(1)",
+      "O(log n)",
+      "O(n)",
+      "O(n^2)"
+    ],
+    "correctOptionIndex": 0,
+    "explanation": "While occasional doubling takes O(n), allocating double capacity spreads the copy cost over n subsequent insertions, producing O(1) amortized time."
+  },
+  {
+    "id": "q32",
+    "subject": "Operating Systems",
+    "question": "Which page replacement algorithm suffers from Belady's Anomaly (where increasing the number of page frames leads to more page faults)?",
+    "options": [
+      "Least Recently Used (LRU)",
+      "Optimal Page Replacement (OPT)",
+      "First-In, First-Out (FIFO)",
+      "Least Frequently Used (LFU)"
+    ],
+    "correctOptionIndex": 2,
+    "explanation": "FIFO page replacement is not a stack algorithm and can exhibit Belady's Anomaly, where giving more memory frames counterintuitively causes higher page faults."
+  },
+  {
+    "id": "q33",
+    "subject": "JavaScript & Modern Web",
+    "question": "Which of the following creates a truly immutable object in JavaScript where existing properties cannot be changed, added, or deleted?",
+    "options": [
+      "Object.preventExtensions(obj)",
+      "Object.seal(obj)",
+      "Object.freeze(obj)",
+      "Object.assign({}, obj)"
+    ],
+    "correctOptionIndex": 2,
+    "explanation": "Object.freeze() makes an object shallowly immutable by preventing the addition of new properties, removal of existing properties, and modification of property values."
+  },
+  {
+    "id": "q34",
+    "subject": "Aptitude & Quantitative Logic",
+    "question": "A work can be completed by Person A in 12 days and by Person B in 24 days. Working together, how many days will they take to finish the job?",
+    "options": [
+      "6 days",
+      "8 days",
+      "10 days",
+      "18 days"
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "Combined 1-day work = 1/12 + 1/24 = 2/24 + 1/24 = 3/24 = 1/8. Hence, together they will finish the entire work in 8 days."
+  },
+  {
+    "id": "q35",
+    "subject": "Cybersecurity & Cryptography",
+    "question": "What kind of web vulnerability occurs when an application includes user input in an SQL query without proper parameterization or prepared statements?",
+    "options": [
+      "Cross-Site Scripting (XSS)",
+      "Cross-Site Request Forgery (CSRF)",
+      "SQL Injection (SQLi)",
+      "Server-Side Request Forgery (SSRF)"
+    ],
+    "correctOptionIndex": 2,
+    "explanation": "SQL Injection occurs when untrusted user input is directly concatenated into dynamic SQL queries, enabling attackers to execute arbitrary database commands."
+  },
+  {
+    "id": "q36",
+    "subject": "Database Management Systems",
+    "question": "What is the difference between TRUNCATE and DELETE in SQL?",
+    "options": [
+      "DELETE is DDL while TRUNCATE is DML.",
+      "TRUNCATE is a DDL operation that resets identity/table storage quickly with minimal logging, while DELETE is a DML operation that removes rows row-by-row.",
+      "DELETE cannot use a WHERE clause whereas TRUNCATE can.",
+      "TRUNCATE cannot be rolled back even inside an explicit transaction in all RDBMS engines."
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "TRUNCATE is a fast DDL command deallocating data pages without row-level triggers, while DELETE is a DML statement deleting rows individually and supporting WHERE filters."
+  },
+  {
+    "id": "q37",
+    "subject": "Computer Networks & Protocols",
+    "question": "In modern web security, which HTTP header instructs the browser that a site should only be accessed using HTTPS, never HTTP?",
+    "options": [
+      "Content-Security-Policy (CSP)",
+      "Strict-Transport-Security (HSTS)",
+      "X-Frame-Options",
+      "Access-Control-Allow-Origin"
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "HTTP Strict Transport Security (HSTS) informs user agents to automatically convert all insecure http:// requests to secure https:// before sending."
+  },
+  {
+    "id": "q38",
+    "subject": "Data Structures & Algorithms",
+    "question": "What algorithm is typically used to find the strongly connected components (SCCs) of a directed graph in linear time O(V + E)?",
+    "options": [
+      "Dijkstra's Algorithm",
+      "Tarjan's or Kosaraju's Algorithm",
+      "Kruskal's Algorithm",
+      "Floyd-Warshall Algorithm"
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "Both Tarjan's (using DFS low-link values) and Kosaraju's (using two DFS passes and transposed graph) decompose directed graphs into SCCs in O(V + E) time."
+  },
+  {
+    "id": "q39",
+    "subject": "Discrete Mathematics & Logic",
+    "question": "If 13 pigeons are placed into 12 pigeonholes, the Pigeonhole Principle guarantees that:",
+    "options": [
+      "Every pigeonhole contains at least one pigeon.",
+      "At least one pigeonhole must contain at least 2 pigeons.",
+      "All pigeonholes have equal numbers of pigeons.",
+      "Exactly one pigeonhole is empty."
+    ],
+    "correctOptionIndex": 1,
+    "explanation": "By the Pigeonhole Principle, if n items are distributed into m containers and n > m, at least one container must hold at least ceil(n/m) = 2 items."
+  },
+  {
+    "id": "q40",
+    "subject": "Software Engineering & Architecture",
+    "question": "What does the concept of 'Idempotence' mean in API and distributed systems design?",
+    "options": [
+      "An operation that can be applied multiple times without changing the result beyond the initial application.",
+      "An API endpoint that responds in less than 10 milliseconds under all network conditions.",
+      "A database read replica that never falls behind the primary leader node.",
+      "A software architecture pattern where all microservices share a single relational database."
+    ],
+    "correctOptionIndex": 0,
+    "explanation": "An operation is idempotent if executing it multiple times produces the exact same side-effects on the system state as executing it once (e.g. HTTP GET, PUT, DELETE)."
+  }
+]
