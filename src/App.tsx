@@ -224,13 +224,33 @@ export default function App() {
           submissionId: data.submission.id,
         });
 
+        const normalizedBreakdown = Array.isArray(data.submission?.breakdown) && data.submission.breakdown.length > 0
+          ? data.submission.breakdown
+          : questions.map((q, index) => ({
+              questionId: q.id,
+              questionNumber: index + 1,
+              questionText: q.question,
+              options: q.options,
+              selectedOption: typeof answersRef.current[q.id] === "number" ? answersRef.current[q.id] : null,
+              correctOption: 0,
+              isCorrect: false,
+              explanation: "Official solution is still being verified by the exam server.",
+            }));
+
         const finalSubmission: QuizSubmission = {
           ...data.submission,
+          score: data.submission?.score ?? data.submission?.correctAnswersCount ?? 0,
+          totalQuestions: data.submission?.totalQuestions ?? questions.length,
+          correctAnswersCount: data.submission?.correctAnswersCount ?? 0,
+          incorrectAnswersCount: data.submission?.incorrectAnswersCount ?? 0,
+          unansweredCount: data.submission?.unansweredCount ?? 0,
+          percentage: data.submission?.percentage ?? 0,
+          breakdown: normalizedBreakdown,
           attemptNumber: attemptNum,
           roomNumber: assignedRoomRef.current || "B2LG2.8",
           pythonGameSolved: true,
           isSubmittedOnNetwork: true,
-          networkSubmittedAt: data.submission.networkSubmittedAt || new Date().toISOString(),
+          networkSubmittedAt: data.submission?.networkSubmittedAt || new Date().toISOString(),
           sheetSyncResult: data.sheetResult || null,
         };
 
@@ -334,9 +354,20 @@ export default function App() {
       const data = await response.json();
       setIsOnline(true);
 
+      const normalizedBreakdown = Array.isArray(data.submission?.breakdown) && data.submission.breakdown.length > 0
+        ? data.submission.breakdown
+        : currentSub.breakdown;
+
       const updatedSub: QuizSubmission = {
         ...data.submission,
-        attemptNumber: data.submission.attemptNumber || currentSub.attemptNumber || 1,
+        score: data.submission?.score ?? data.submission?.correctAnswersCount ?? currentSub.score,
+        totalQuestions: data.submission?.totalQuestions ?? currentSub.totalQuestions,
+        correctAnswersCount: data.submission?.correctAnswersCount ?? currentSub.correctAnswersCount,
+        incorrectAnswersCount: data.submission?.incorrectAnswersCount ?? currentSub.incorrectAnswersCount,
+        unansweredCount: data.submission?.unansweredCount ?? currentSub.unansweredCount,
+        percentage: data.submission?.percentage ?? currentSub.percentage,
+        breakdown: normalizedBreakdown,
+        attemptNumber: data.submission?.attemptNumber || currentSub.attemptNumber || 1,
         roomNumber: assignedRoomRef.current || "B2LG2.8",
         pythonGameSolved: true,
         isSubmittedOnNetwork: true,

@@ -68,6 +68,8 @@ export const ResultView: React.FC<ResultViewProps> = ({
   });
 
   const { student, breakdown, score, totalQuestions, percentage, timeSpentSeconds, submissionReason, toggleCount } = submission;
+  const hasOfficialBreakdown = Array.isArray(breakdown) && breakdown.some((item) => item.correctOption !== undefined && item.correctOption !== null);
+  const shouldShowAnswerKey = submission.isSubmittedOnNetwork || hasOfficialBreakdown;
 
   // Auto-attempt sync if taking exam offline and not already submitted on network
   React.useEffect(() => {
@@ -529,8 +531,8 @@ export const ResultView: React.FC<ResultViewProps> = ({
         </div>
       </div>
 
-      {/* Answer Key & Solutions Section - Shown after submitting on the network */}
-      {submission.isSubmittedOnNetwork ? (
+      {/* Answer Key & Solutions Section - Shown when official results are available */}
+      {shouldShowAnswerKey ? (
         <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4 animate-in fade-in duration-300">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
             <div>
@@ -540,7 +542,7 @@ export const ResultView: React.FC<ResultViewProps> = ({
                 </h2>
                 <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md flex items-center gap-1">
                   <CheckCircle2 className="w-3 h-3 text-emerald-600" />
-                  Submitted on Network
+                  {submission.isSubmittedOnNetwork ? "Submitted on Network" : "Official Review"}
                 </span>
               </div>
               <p className="text-xs text-slate-500 mt-0.5">
