@@ -437,14 +437,14 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
               )}
 
               {/* Anti-Copy Protection Integrity Notice */}
-              <div className="flex items-center gap-2 p-3 bg-slate-50 rounded-xl border border-slate-200 text-[11px] text-slate-700">
-                <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>
-                  <strong>QR Code clue:</strong>Tired of solving clues? Don’t worry, this one needs no coding! 
-Go to the place where students fight with
-T-squares, scales, pencils & impossible angles. 
-Your next clue is hiding there!
-Near b3 1st floor  faculty rooms!!!!!
+              <div className="flex items-start gap-2.5 p-3.5 bg-slate-50 rounded-xl border border-slate-200 text-sm leading-relaxed text-slate-700">
+                <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+                <span className="block whitespace-pre-line">
+                  <strong className="font-bold text-slate-900">QR Code clue:</strong> Tired of solving clues? Don’t worry, this one needs no coding!
+                  Go to the place where students fight with
+                  T-squares, scales, pencils & impossible angles.
+                  Your next clue is hiding there!
+                  Near b3 1st floor faculty rooms!!!!!
                 </span>
               </div>
 
