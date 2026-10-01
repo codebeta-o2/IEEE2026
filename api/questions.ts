@@ -1,4 +1,4 @@
-import rawQuestions from "../server/questions.json";
+import rawQuestions from "../server/questions.json" with { type: "json" };
 
 export default function handler(req: any, res: any) {
   res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");

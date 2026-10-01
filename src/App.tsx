@@ -48,6 +48,7 @@ import {
 } from "lucide-react";
 
 const TOTAL_DURATION_SECONDS = 1200; // 20 minutes (1 minute per question for 20 questions)
+const MAX_EXAM_QUESTIONS = 20;
 
 export default function App() {
   // Core Navigation State
@@ -61,14 +62,14 @@ export default function App() {
   const [isPythonSolved, setIsPythonSolved] = useState<boolean>(false);
 
   // Questions state: automatically selected 20 questions randomly from JSON bank
-  const [questions, setQuestions] = useState<QuestionData[]>(() => selectRandomQuestions(20));
+  const [questions, setQuestions] = useState<QuestionData[]>(() => selectRandomQuestions(MAX_EXAM_QUESTIONS));
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   // Student Answers state
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [markedForReview, setMarkedForReview] = useState<Set<string>>(new Set());
   const [visitedQuestions, setVisitedQuestions] = useState<Set<string>>(() => {
-    const initial = selectRandomQuestions(20);
+    const initial = selectRandomQuestions(MAX_EXAM_QUESTIONS);
     return new Set([initial[0]?.id || "q1"]);
   });
 
@@ -161,7 +162,7 @@ export default function App() {
       .then((res) => res.json())
       .then((data) => {
         if (data.questions && data.questions.length > 0) {
-          setQuestions(data.questions);
+          setQuestions(data.questions.slice(0, MAX_EXAM_QUESTIONS));
         }
       })
       .catch((err) => {
@@ -482,7 +483,7 @@ export default function App() {
     isSubmittingRef.current = false;
     setIsSubmitting(false);
 
-    const sessionQuestions = await fetchExamQuestions(20);
+    const sessionQuestions = (await fetchExamQuestions(MAX_EXAM_QUESTIONS)).slice(0, MAX_EXAM_QUESTIONS);
     setQuestions(sessionQuestions);
     setStudent(details);
     setTimeRemaining(TOTAL_DURATION_SECONDS);
@@ -504,7 +505,7 @@ export default function App() {
     isSubmittingRef.current = false;
     setIsSubmitting(false);
 
-    const freshQuestions = await fetchExamQuestions(20);
+    const freshQuestions = (await fetchExamQuestions(MAX_EXAM_QUESTIONS)).slice(0, MAX_EXAM_QUESTIONS);
     setQuestions(freshQuestions);
     setVisitedQuestions(new Set([freshQuestions[0]?.id || "q1"]));
     setStudent(null);

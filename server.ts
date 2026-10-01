@@ -412,8 +412,9 @@ async function startServer() {
 
       // Determine which questions were in this candidate's quiz session
       let targetQuestions: Question[] = [];
-      if (Array.isArray(questionIds) && questionIds.length > 0) {
-        targetQuestions = questionIds.slice(0, 20)
+      const uniqueQuestionIds = Array.isArray(questionIds) ? [...new Set(questionIds)].slice(0, 20) : [];
+      if (uniqueQuestionIds.length > 0) {
+        targetQuestions = uniqueQuestionIds
           .map((id: string, idx: number) => {
             const found = QUESTIONS_MAP.get(id);
             return found ? { ...found, number: idx + 1 } : null;
