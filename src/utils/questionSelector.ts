@@ -14,6 +14,7 @@ import { SANITIZED_QUESTIONS_POOL } from "../data/sanitizedQuestions";
  */
 
 let cachedSanitizedQuestions: QuestionData[] = [...SANITIZED_QUESTIONS_POOL];
+const MAX_EXAM_QUESTIONS = 20;
 
 // Eagerly refresh randomized questions from server if online
 if (typeof window !== "undefined") {
@@ -32,39 +33,41 @@ if (typeof window !== "undefined") {
  * All answer keys and explanations are omitted by the server.
  */
 export async function fetchExamQuestions(count: number = 20): Promise<QuestionData[]> {
+  const requestedCount = Math.min(Math.max(Math.floor(count) || MAX_EXAM_QUESTIONS, 1), MAX_EXAM_QUESTIONS);
   try {
-    const res = await fetch(`/api/questions?count=${count}`);
+    const res = await fetch(`/api/questions?count=${requestedCount}`);
     if (res.ok) {
       const data = await res.json();
       if (data.questions && Array.isArray(data.questions) && data.questions.length > 0) {
-        cachedSanitizedQuestions = data.questions;
-        return data.questions;
+        cachedSanitizedQuestions = data.questions.slice(0, MAX_EXAM_QUESTIONS);
+        return cachedSanitizedQuestions.slice(0, requestedCount);
       }
     }
   } catch (err) {
     console.warn("[Security Engine] Network question fetch fallback to cache:", err);
   }
-  return cachedSanitizedQuestions.length > 0 ? cachedSanitizedQuestions : selectRandomQuestions(count);
+  return selectRandomQuestions(requestedCount);
 }
 
 /**
  * Synchronously provides sanitized questions from memory cache.
  */
 export function selectRandomQuestions(count: number = 20): QuestionData[] {
+  const requestedCount = Math.min(Math.max(Math.floor(count) || MAX_EXAM_QUESTIONS, 1), MAX_EXAM_QUESTIONS);
   if (cachedSanitizedQuestions.length > 0) {
     const pool = [...cachedSanitizedQuestions];
     for (let i = pool.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [pool[i], pool[j]] = [pool[j], pool[i]];
     }
-    return pool.slice(0, Math.min(count, pool.length)).map((q, idx) => ({
+    return pool.slice(0, Math.min(requestedCount, pool.length)).map((q, idx) => ({
       ...q,
       number: idx + 1,
     }));
   }
 
   // Fallback initial placeholder structure if server fetch hasn't completed yet
-  return Array.from({ length: Math.min(count, 20) }, (_, i) => ({
+  return Array.from({ length: requestedCount }, (_, i) => ({
     id: `q${i + 1}`,
     number: i + 1,
     subject: "Computer Science & Engineering",

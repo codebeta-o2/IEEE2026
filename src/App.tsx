@@ -231,6 +231,7 @@ export default function App() {
           pythonGameSolved: true,
           isSubmittedOnNetwork: true,
           networkSubmittedAt: data.submission.networkSubmittedAt || new Date().toISOString(),
+          sheetSyncResult: data.sheetResult || null,
         };
 
         setSubmissionResult(finalSubmission);
@@ -238,11 +239,13 @@ export default function App() {
         setStep("SUBMISSION_RESULT");
         setIsSubmitting(false);
 
-        setSheetSuccessData({
-          rowNumber: data.sheetResult?.data?.rowNumber,
-          message: data.sheetResult?.message || "Successfully recorded in Google Sheet",
-        });
-        setSheetSuccessModalOpen(true);
+        if (data.sheetResult?.success) {
+          setSheetSuccessData({
+            rowNumber: data.sheetResult.data?.rowNumber,
+            message: data.sheetResult.message || "Successfully recorded in Google Sheet",
+          });
+          setSheetSuccessModalOpen(true);
+        }
         return;
       } catch (error) {
         console.error("Online submission failed, falling back to local evaluation:", error);
@@ -338,10 +341,11 @@ export default function App() {
         pythonGameSolved: true,
         isSubmittedOnNetwork: true,
         networkSubmittedAt: new Date().toISOString(),
+        sheetSyncResult: data.sheetResult || null,
       };
 
       setSubmissionResult(updatedSub);
-      if (data.sheetResult) {
+      if (data.sheetResult?.success) {
         setSheetSuccessData({
           rowNumber: data.sheetResult.data?.rowNumber,
           message: data.sheetResult.message || "Successfully recorded in Google Sheet",

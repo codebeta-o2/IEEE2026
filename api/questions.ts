@@ -10,7 +10,6 @@ export default function handler(req: any, res: any) {
     return res.status(200).end();
   }
 
-  const countParam = req.query?.count;
   const pool = [...(rawQuestions as any[])];
 
   // Fisher-Yates shuffle
@@ -19,7 +18,7 @@ export default function handler(req: any, res: any) {
     [pool[i], pool[j]] = [pool[j], pool[i]];
   }
 
-  const limit = countParam === "all" ? pool.length : Math.min(parseInt(String(countParam || "20"), 10) || 20, pool.length);
+  const limit = Math.min(20, pool.length);
 
   // Strip answer keys and explanations for exam integrity
   const sanitized = pool.slice(0, limit).map((q, idx) => ({

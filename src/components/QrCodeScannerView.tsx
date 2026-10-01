@@ -7,7 +7,6 @@ import {
   CheckCircle2, 
   AlertTriangle, 
   RotateCw, 
-  Sparkles, 
   MapPin, 
   Code2, 
   FileText,
@@ -162,11 +161,6 @@ export const QrCodeScannerView: React.FC<QrCodeScannerViewProps> = ({
       return;
     }
     handleValidCodeScanned(manualInput);
-  };
-
-  const handleQuickSimulateScan = () => {
-    setManualInput(targetCode);
-    handleValidCodeScanned(targetCode);
   };
 
   return (
@@ -414,29 +408,6 @@ export const QrCodeScannerView: React.FC<QrCodeScannerViewProps> = ({
               <span>{errorMessage}</span>
             </div>
           )}
-
-          {/* Quick Scan Simulator without revealing raw code */}
-          <div className="p-4 bg-slate-50 border border-slate-200 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div>
-              <span className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-amber-500" />
-                Testing / Desk Simulator
-              </span>
-              <p className="text-[11px] text-slate-500 mt-0.5">
-                Camera unavailable or testing without a physical printed code? Click to simulate the scan.
-              </p>
-            </div>
-
-            <button
-              type="button"
-              id="btn-quick-scan-simulate"
-              onClick={handleQuickSimulateScan}
-              className="px-4 py-2 bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-slate-950 font-bold text-xs rounded-xl shadow-2xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
-            >
-              <QrCode className="w-4 h-4" />
-              <span>Simulate QR Code Scan</span>
-            </button>
-          </div>
 
           {/* Manual Input Form */}
           <form onSubmit={handleManualSubmit} className="pt-2 border-t border-slate-100">

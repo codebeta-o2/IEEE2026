@@ -57,6 +57,11 @@ export interface QuizSubmission {
   submittedAt: string;
   isSubmittedOnNetwork: boolean;
   networkSubmittedAt?: string;
+  sheetSyncResult?: {
+    success: boolean;
+    message?: string;
+    data?: { rowNumber?: number };
+  } | null;
   attemptNumber?: number;
   roomNumber?: string;
   pythonGameSolved?: boolean;

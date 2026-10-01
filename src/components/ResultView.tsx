@@ -48,9 +48,17 @@ export const ResultView: React.FC<ResultViewProps> = ({
     rowNumber?: number;
   }>(() => {
     if (submission.isSubmittedOnNetwork) {
+      if (submission.sheetSyncResult?.success === false) {
+        return {
+          status: "error",
+          message: submission.sheetSyncResult.message || "Quiz submitted, but Google Sheets did not confirm the record.",
+        };
+      }
       return {
-        status: "success",
-        message: "Exam scorecard & candidate details successfully recorded in official Google Sheet database!",
+        status: submission.sheetSyncResult?.success ? "success" : "error",
+        message: submission.sheetSyncResult?.success
+          ? submission.sheetSyncResult.message || "Exam scorecard & candidate details successfully recorded in official Google Sheet database!"
+          : "Quiz submitted, but Google Sheets did not confirm the record.",
       };
     }
     return {
@@ -669,6 +677,11 @@ export const ResultView: React.FC<ResultViewProps> = ({
                             {isCandidateChoice && (
                               <span className="text-[10px] font-bold mt-1 block text-slate-500 uppercase">
                                 {isCorrect ? "✓ Your Selection (Correct)" : "✗ Your Selection"}
+                              </span>
+                            )}
+                            {isOfficialCorrect && (
+                              <span className="text-[10px] font-bold mt-1 block text-emerald-700 uppercase">
+                                Correct Answer
                               </span>
                             )}
                           </div>

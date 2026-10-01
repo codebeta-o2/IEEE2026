@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 const DEFAULT_GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyBNOxR68rgD0fEdvFdZcD06KeDgvBgAUHP_tqO-uHEP5E0_kHWzH6vUr0jNl2IPQCT/exec";
 
 export default async function handler(req: any, res: any) {

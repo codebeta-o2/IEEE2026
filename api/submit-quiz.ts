@@ -1,3 +1,4 @@
+import "dotenv/config";
 import rawQuestions from "../server/questions.json";
 
 const DEFAULT_GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyBNOxR68rgD0fEdvFdZcD06KeDgvBgAUHP_tqO-uHEP5E0_kHWzH6vUr0jNl2IPQCT/exec";
@@ -42,7 +43,7 @@ export default async function handler(req: any, res: any) {
 
     let targetQuestions: any[] = [];
     if (Array.isArray(questionIds) && questionIds.length > 0) {
-      targetQuestions = questionIds
+      targetQuestions = questionIds.slice(0, 20)
         .map((id: string, idx: number) => {
           const found = questionsMap.get(id);
           return found ? { ...found, number: idx + 1 } : null;

@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import path from "path";
 import { createServer as createViteServer } from "vite";
@@ -331,14 +332,7 @@ async function startServer() {
 
   // API 2: Get questions list (automatically selects 20 random questions from the bank)
   app.get("/api/questions", (req, res) => {
-    const countParam = req.query.count;
-    let selected: Question[];
-    if (countParam === "all") {
-      selected = QUESTIONS_BANK;
-    } else {
-      const requestedCount = countParam ? parseInt(String(countParam), 10) || 20 : 20;
-      selected = selectRandomQuestions(requestedCount);
-    }
+    const selected = selectRandomQuestions(20);
 
     const sanitizedQuestions = selected.map((q) => ({
       id: q.id,
@@ -419,7 +413,7 @@ async function startServer() {
       // Determine which questions were in this candidate's quiz session
       let targetQuestions: Question[] = [];
       if (Array.isArray(questionIds) && questionIds.length > 0) {
-        targetQuestions = questionIds
+        targetQuestions = questionIds.slice(0, 20)
           .map((id: string, idx: number) => {
             const found = QUESTIONS_MAP.get(id);
             return found ? { ...found, number: idx + 1 } : null;
@@ -431,7 +425,7 @@ async function startServer() {
         // Fallback: evaluate against all questions that received answers, or first 20
         const answeredIds = answers ? Object.keys(answers) : [];
         if (answeredIds.length > 0) {
-          targetQuestions = answeredIds
+          targetQuestions = answeredIds.slice(0, 20)
             .map((id: string, idx: number) => {
               const found = QUESTIONS_MAP.get(id);
               return found ? { ...found, number: idx + 1 } : null;
