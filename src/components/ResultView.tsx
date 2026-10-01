@@ -71,17 +71,23 @@ export const ResultView: React.FC<ResultViewProps> = ({
   const hasOfficialBreakdown = Array.isArray(breakdown) && breakdown.length > 0 && breakdown.every(
     (item) => Number.isInteger(item.correctOption) && item.correctOption! >= 0 && item.correctOption! < item.options.length
   );
-  const shouldShowAnswerKey = submission.isSubmittedOnNetwork && hasOfficialBreakdown;
-  const correctCount = hasOfficialBreakdown ? breakdown.filter((item) => item.isCorrect).length : submission.correctAnswersCount;
+  const shouldShowAnswerKey = hasOfficialBreakdown;
+  const hasAnswered = (item: typeof breakdown[number]) => Number.isInteger(item.selectedOption)
+    && item.selectedOption! >= 0
+    && item.selectedOption! < item.options.length;
+  const isAnswerCorrect = (item: typeof breakdown[number]) => hasAnswered(item)
+    && item.selectedOption === item.correctOption;
+  const officialTotalQuestions = hasOfficialBreakdown ? breakdown.length : totalQuestions;
+  const correctCount = hasOfficialBreakdown ? breakdown.filter(isAnswerCorrect).length : submission.correctAnswersCount;
   const incorrectCount = hasOfficialBreakdown
-    ? breakdown.filter((item) => item.selectedOption !== null && !item.isCorrect).length
+    ? breakdown.filter((item) => hasAnswered(item) && !isAnswerCorrect(item)).length
     : submission.incorrectAnswersCount;
   const unansweredCount = hasOfficialBreakdown
-    ? breakdown.filter((item) => item.selectedOption === null).length
+    ? breakdown.filter((item) => !hasAnswered(item)).length
     : submission.unansweredCount;
   const finalScore = hasOfficialBreakdown ? correctCount : score;
-  const finalPercentage = hasOfficialBreakdown && totalQuestions > 0
-    ? Math.round((correctCount / totalQuestions) * 100)
+  const finalPercentage = hasOfficialBreakdown && officialTotalQuestions > 0
+    ? Math.round((correctCount / officialTotalQuestions) * 100)
     : percentage;
 
   // Auto-attempt sync if taking exam offline and not already submitted on network
@@ -151,9 +157,9 @@ export const ResultView: React.FC<ResultViewProps> = ({
   };
 
   const filteredBreakdown = breakdown.filter((item) => {
-    if (filter === "CORRECT") return item.isCorrect;
-    if (filter === "INCORRECT") return item.selectedOption !== null && !item.isCorrect;
-    if (filter === "UNANSWERED") return item.selectedOption === null;
+    if (filter === "CORRECT") return isAnswerCorrect(item);
+    if (filter === "INCORRECT") return hasAnswered(item) && !isAnswerCorrect(item);
+    if (filter === "UNANSWERED") return !hasAnswered(item);
     return true;
   });
 
@@ -494,7 +500,7 @@ export const ResultView: React.FC<ResultViewProps> = ({
             {/* Primary Score */}
             <div className="col-span-1 p-3.5 bg-blue-50/70 border border-blue-200 rounded-2xl text-center flex flex-col justify-center">
               <span className="text-3xl font-black text-blue-700 tracking-tight">
-                {finalScore}<span className="text-sm font-semibold text-blue-500">/{totalQuestions}</span>
+                {finalScore}<span className="text-sm font-semibold text-blue-500">/{officialTotalQuestions}</span>
               </span>
               <span className="text-[11px] uppercase font-bold text-blue-900 mt-1">
                 Final Score
@@ -615,14 +621,14 @@ export const ResultView: React.FC<ResultViewProps> = ({
           {/* Question Cards List */}
           <div className="space-y-4">
             {filteredBreakdown.map((item) => {
-              const hasAnswered = item.selectedOption !== null;
-              const isCorrect = item.isCorrect;
+              const answered = hasAnswered(item);
+              const isCorrect = isAnswerCorrect(item);
 
               return (
                 <div
                   key={item.questionId}
                   className={`p-5 rounded-2xl border transition-all ${
-                    !hasAnswered
+                    !answered
                       ? "bg-slate-50/60 border-slate-200"
                       : isCorrect
                       ? "bg-emerald-50/30 border-emerald-200"
@@ -642,7 +648,7 @@ export const ResultView: React.FC<ResultViewProps> = ({
 
                     {/* Status Badge */}
                     <div className="shrink-0">
-                      {!hasAnswered ? (
+                      {!answered ? (
                         <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-200/80 text-slate-700">
                           <HelpCircle className="w-3.5 h-3.5" />
                           Not Answered
