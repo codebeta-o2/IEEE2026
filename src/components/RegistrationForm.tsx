@@ -163,7 +163,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
               IEEE DAY SPECIAL
             </h1>
             <p className="text-xs sm:text-sm text-slate-500 mt-1">
-              Primary Key: <strong>Enrollment Number *</strong> · Central Google Sheet verified
+              GRSS/MTTS/SPS/APS/TEMS
             </p>
           </div>
 
@@ -440,7 +440,11 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
               <div className="flex items-center gap-2 p-3 bg-slate-50 rounded-xl border border-slate-200 text-[11px] text-slate-700">
                 <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
                 <span>
-                  <strong>Anti-Cheating Safeguard Active:</strong> Copying, cutting, pasting, right-click, and unauthorized keyboard shortcuts are strictly prohibited.
+                  <strong>QR Code clue:</strong>Tired of solving clues? Don’t worry, this one needs no coding! 
+Go to the place where students fight with
+T-squares, scales, pencils & impossible angles. 
+Your next clue is hiding there!
+Near b3 1st floor  faculty rooms!!!!!
                 </span>
               </div>
 
