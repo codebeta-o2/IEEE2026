@@ -16,13 +16,35 @@ import { SANITIZED_QUESTIONS_POOL } from "../data/sanitizedQuestions";
 let cachedSanitizedQuestions: QuestionData[] = [...SANITIZED_QUESTIONS_POOL];
 const MAX_EXAM_QUESTIONS = 20;
 
+export function normalizeQuestionRecord(raw: Record<string, any>, index: number = 0): QuestionData {
+  const questionText =
+    raw?.question ??
+    raw?.questionText ??
+    raw?.text ??
+    raw?.statement ??
+    "";
+
+  const options = Array.isArray(raw?.options)
+    ? raw.options.map((option: any) => String(option))
+    : ["Option A", "Option B", "Option C", "Option D"];
+
+  return {
+    id: String(raw?.id ?? `q${index + 1}`),
+    number: Number.isFinite(raw?.number) ? Number(raw.number) : index + 1,
+    subject: String(raw?.subject ?? "General"),
+    question: String(questionText),
+    codeSnippet: typeof raw?.codeSnippet === "string" ? raw.codeSnippet : undefined,
+    options,
+  };
+}
+
 // Eagerly refresh randomized questions from server if online
 if (typeof window !== "undefined") {
   fetch("/api/questions?count=20")
     .then((r) => (r.ok ? r.json() : null))
     .then((data) => {
       if (data?.questions && Array.isArray(data.questions) && data.questions.length > 0) {
-        cachedSanitizedQuestions = data.questions;
+        cachedSanitizedQuestions = data.questions.map((q: any, idx: number) => normalizeQuestionRecord(q, idx));
       }
     })
     .catch((err) => console.warn("[Security Engine] Questions network refresh deferred (using offline bank):", err));
@@ -39,7 +61,7 @@ export async function fetchExamQuestions(count: number = 20): Promise<QuestionDa
     if (res.ok) {
       const data = await res.json();
       if (data.questions && Array.isArray(data.questions) && data.questions.length > 0) {
-        cachedSanitizedQuestions = data.questions.slice(0, MAX_EXAM_QUESTIONS);
+        cachedSanitizedQuestions = data.questions.slice(0, MAX_EXAM_QUESTIONS).map((q: any, idx: number) => normalizeQuestionRecord(q, idx));
         return cachedSanitizedQuestions.slice(0, requestedCount);
       }
     }
@@ -55,7 +77,7 @@ export async function fetchExamQuestions(count: number = 20): Promise<QuestionDa
 export function selectRandomQuestions(count: number = 20): QuestionData[] {
   const requestedCount = Math.min(Math.max(Math.floor(count) || MAX_EXAM_QUESTIONS, 1), MAX_EXAM_QUESTIONS);
   if (cachedSanitizedQuestions.length > 0) {
-    const pool = [...cachedSanitizedQuestions];
+    const pool = [...cachedSanitizedQuestions].map((q, idx) => normalizeQuestionRecord(q, idx));
     for (let i = pool.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [pool[i], pool[j]] = [pool[j], pool[i]];

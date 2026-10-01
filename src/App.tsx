@@ -162,7 +162,19 @@ export default function App() {
       .then((res) => res.json())
       .then((data) => {
         if (data.questions && data.questions.length > 0) {
-          setQuestions(data.questions.slice(0, MAX_EXAM_QUESTIONS));
+          const nextQuestions = data.questions
+            .slice(0, MAX_EXAM_QUESTIONS)
+            .map((question: any, index: number) => ({
+              ...question,
+              id: String(question.id ?? `q${index + 1}`),
+              number: index + 1,
+              question: question.question ?? question.questionText ?? question.text ?? question.statement ?? "",
+              options: Array.isArray(question.options) ? question.options : ["Option A", "Option B", "Option C", "Option D"],
+            }));
+
+          setQuestions(nextQuestions);
+          setCurrentQuestionIndex(0);
+          setVisitedQuestions(new Set(nextQuestions[0] ? [nextQuestions[0].id] : []));
         }
       })
       .catch((err) => {
