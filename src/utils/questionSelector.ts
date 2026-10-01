@@ -109,7 +109,7 @@ export function evaluateExamAnswers(
       questionText: q.question,
       options: q.options,
       selectedOption: hasAnswered ? studentAns : null,
-      correctOption: 0, // Hidden on client; authoritative key evaluated on server
+      correctOption: null, // Hidden on client; authoritative key evaluated on server
       isCorrect: false,
       explanation: "Official explanation is verified and unlocked on the server upon submission.",
     };

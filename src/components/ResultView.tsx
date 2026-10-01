@@ -68,8 +68,21 @@ export const ResultView: React.FC<ResultViewProps> = ({
   });
 
   const { student, breakdown, score, totalQuestions, percentage, timeSpentSeconds, submissionReason, toggleCount } = submission;
-  const hasOfficialBreakdown = Array.isArray(breakdown) && breakdown.some((item) => item.correctOption !== undefined && item.correctOption !== null);
-  const shouldShowAnswerKey = submission.isSubmittedOnNetwork || hasOfficialBreakdown;
+  const hasOfficialBreakdown = Array.isArray(breakdown) && breakdown.length > 0 && breakdown.every(
+    (item) => Number.isInteger(item.correctOption) && item.correctOption! >= 0 && item.correctOption! < item.options.length
+  );
+  const shouldShowAnswerKey = submission.isSubmittedOnNetwork && hasOfficialBreakdown;
+  const correctCount = hasOfficialBreakdown ? breakdown.filter((item) => item.isCorrect).length : submission.correctAnswersCount;
+  const incorrectCount = hasOfficialBreakdown
+    ? breakdown.filter((item) => item.selectedOption !== null && !item.isCorrect).length
+    : submission.incorrectAnswersCount;
+  const unansweredCount = hasOfficialBreakdown
+    ? breakdown.filter((item) => item.selectedOption === null).length
+    : submission.unansweredCount;
+  const finalScore = hasOfficialBreakdown ? correctCount : score;
+  const finalPercentage = hasOfficialBreakdown && totalQuestions > 0
+    ? Math.round((correctCount / totalQuestions) * 100)
+    : percentage;
 
   // Auto-attempt sync if taking exam offline and not already submitted on network
   React.useEffect(() => {
@@ -481,7 +494,7 @@ export const ResultView: React.FC<ResultViewProps> = ({
             {/* Primary Score */}
             <div className="col-span-1 p-3.5 bg-blue-50/70 border border-blue-200 rounded-2xl text-center flex flex-col justify-center">
               <span className="text-3xl font-black text-blue-700 tracking-tight">
-                {score}<span className="text-sm font-semibold text-blue-500">/{totalQuestions}</span>
+                {finalScore}<span className="text-sm font-semibold text-blue-500">/{totalQuestions}</span>
               </span>
               <span className="text-[11px] uppercase font-bold text-blue-900 mt-1">
                 Final Score
@@ -491,7 +504,7 @@ export const ResultView: React.FC<ResultViewProps> = ({
             {/* Percentage */}
             <div className="col-span-1 p-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-center flex flex-col justify-center">
               <span className="text-3xl font-black text-slate-900 tracking-tight">
-                {percentage}%
+                {finalPercentage}%
               </span>
               <span className="text-[11px] uppercase font-bold text-slate-600 mt-1">
                 Accuracy
@@ -512,15 +525,15 @@ export const ResultView: React.FC<ResultViewProps> = ({
           {/* Sub metrics: Correct, Incorrect, Unanswered, Toggles */}
           <div className="grid grid-cols-4 gap-2 text-center text-xs">
             <div className="p-2 rounded-xl bg-emerald-50 border border-emerald-200">
-              <span className="block font-bold text-emerald-700 text-sm">{submission.correctAnswersCount}</span>
+              <span className="block font-bold text-emerald-700 text-sm">{correctCount}</span>
               <span className="text-[10px] text-emerald-800 font-medium">Correct</span>
             </div>
             <div className="p-2 rounded-xl bg-rose-50 border border-rose-200">
-              <span className="block font-bold text-rose-700 text-sm">{submission.incorrectAnswersCount}</span>
+              <span className="block font-bold text-rose-700 text-sm">{incorrectCount}</span>
               <span className="text-[10px] text-rose-800 font-medium">Incorrect</span>
             </div>
             <div className="p-2 rounded-xl bg-slate-100 border border-slate-200">
-              <span className="block font-bold text-slate-600 text-sm">{submission.unansweredCount}</span>
+              <span className="block font-bold text-slate-600 text-sm">{unansweredCount}</span>
               <span className="text-[10px] text-slate-500 font-medium">Unanswered</span>
             </div>
             <div className="p-2 rounded-xl bg-indigo-50 border border-indigo-200">
@@ -572,7 +585,7 @@ export const ResultView: React.FC<ResultViewProps> = ({
                     : "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
                 }`}
               >
-                Correct ({submission.correctAnswersCount})
+                Correct ({correctCount})
               </button>
               <button
                 type="button"
@@ -583,7 +596,7 @@ export const ResultView: React.FC<ResultViewProps> = ({
                     : "bg-rose-50 text-rose-700 hover:bg-rose-100"
                 }`}
               >
-                Incorrect ({submission.incorrectAnswersCount})
+                Incorrect ({incorrectCount})
               </button>
               <button
                 type="button"
@@ -594,7 +607,7 @@ export const ResultView: React.FC<ResultViewProps> = ({
                     : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                 }`}
               >
-                Skipped ({submission.unansweredCount})
+                Skipped ({unansweredCount})
               </button>
             </div>
           </div>

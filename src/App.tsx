@@ -185,11 +185,8 @@ export default function App() {
       return;
     }
 
-    const isNetworkActive = isOnlineRef.current || reason === "AUTO_NETWORK_DETECTED";
-
-    // If on network (or network auto-detected trigger), submit directly to server & Google Sheet!
-    if (isNetworkActive) {
-      try {
+    // Always try the server evaluator; connectivity probes can misclassify a working Vercel connection.
+    try {
         const payload = {
           student: currentStudent,
           answers: answersRef.current,
@@ -232,7 +229,7 @@ export default function App() {
               questionText: q.question,
               options: q.options,
               selectedOption: typeof answersRef.current[q.id] === "number" ? answersRef.current[q.id] : null,
-              correctOption: 0,
+              correctOption: null,
               isCorrect: false,
               explanation: "Official solution is still being verified by the exam server.",
             }));
@@ -267,9 +264,8 @@ export default function App() {
           setSheetSuccessModalOpen(true);
         }
         return;
-      } catch (error) {
-        console.error("Online submission failed, falling back to local evaluation:", error);
-      }
+    } catch (error) {
+      console.error("Online submission failed, falling back to local evaluation:", error);
     }
 
     // Offline mode conclusion

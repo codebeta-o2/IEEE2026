@@ -33,7 +33,7 @@ export interface QuestionBreakdown {
   questionText: string;
   options: string[];
   selectedOption: number | null;
-  correctOption: number;
+  correctOption: number | null;
   isCorrect: boolean;
   explanation: string;
 }
