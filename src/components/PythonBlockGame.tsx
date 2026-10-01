@@ -84,7 +84,7 @@ export const PythonBlockGame: React.FC<PythonBlockGameProps> = ({
   });
 
   const [isRoomRevealed, setIsRoomRevealed] = useState<boolean>(false);
-  const ASSIGNED_ROOM = "B2LG2.8";
+  const ASSIGNED_ROOM = "B3LG2.8";
 
   // Check if each block is in its correct slot right now
   const isAllCorrect = blocks.every((block, idx) => block.correctIndex === idx);
