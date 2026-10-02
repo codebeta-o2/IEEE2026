@@ -148,7 +148,13 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
       {/* Header Banner */}
       <div className="bg-white border border-slate-200 rounded-2xl shadow-xs p-5 sm:p-6 mb-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
+          <div className="flex min-w-0 items-center gap-4">
+            <img
+              src="https://ieeeday.org/wp-content/uploads/2022/08/IEEE-Day.svg"
+              alt="IEEE Day"
+              className="h-16 w-24 shrink-0 object-contain sm:h-20 sm:w-32"
+            />
+            <div className="min-w-0">
             <div className="flex items-center gap-2 flex-wrap mb-2">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
                 <ShieldAlert className="w-3.5 h-3.5" />
@@ -165,6 +171,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
             <p className="text-xs sm:text-sm text-slate-500 mt-1">
               GRSS/MTTS/SPS/APS/TEMS
             </p>
+            </div>
           </div>
 
           <div className="flex items-center gap-2 flex-wrap self-start sm:self-center">
