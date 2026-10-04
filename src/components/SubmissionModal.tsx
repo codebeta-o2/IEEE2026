@@ -152,7 +152,7 @@ export const SubmissionModal: React.FC<SubmissionModalProps> = ({
                 </div>
                 <div>
                   <span className="text-[10px] uppercase font-bold text-slate-400 block">Phone & Room</span>
-                  <span className="font-medium text-slate-800">{student.phone} • Room B2LG2.8</span>
+                  <span className="font-medium text-slate-800">{student.phone} • Room B3LG2.8</span>
                 </div>
               </div>
             </div>

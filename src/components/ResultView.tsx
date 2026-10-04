@@ -51,14 +51,14 @@ export const ResultView: React.FC<ResultViewProps> = ({
       if (submission.sheetSyncResult?.success === false) {
         return {
           status: "error",
-          message: submission.sheetSyncResult.message || "Quiz submitted, but Google Sheets did not confirm the record.",
+          message: submission.sheetSyncResult.message || "Quiz submitted, but the record was not confirmed.",
         };
       }
       return {
         status: submission.sheetSyncResult?.success ? "success" : "error",
         message: submission.sheetSyncResult?.success
-          ? submission.sheetSyncResult.message || "Exam scorecard & candidate details successfully recorded in official Google Sheet database!"
-          : "Quiz submitted, but Google Sheets did not confirm the record.",
+        ? submission.sheetSyncResult.message || "Exam scorecard and candidate details were recorded successfully!"
+        : "Quiz submitted, but the record was not confirmed.",
       };
     }
     return {
@@ -97,7 +97,7 @@ export const ResultView: React.FC<ResultViewProps> = ({
       return;
     }
 
-    setSheetSyncState({ status: "syncing", message: "Recording exam scorecard in Google Sheet..." });
+    setSheetSyncState({ status: "syncing", message: "Recording exam scorecard..." });
     
     sendSubmissionToGoogleSheet(
       submission,
@@ -107,13 +107,13 @@ export const ResultView: React.FC<ResultViewProps> = ({
       if (res.success) {
         setSheetSyncState({
           status: "success",
-          message: res.message || "Exam scorecard successfully recorded in Google Sheet!",
+          message: res.message || "Exam scorecard recorded successfully!",
           rowNumber: res.data?.rowNumber,
         });
       } else {
         setSheetSyncState({
           status: "error",
-          message: res.message || "Could not save scorecard to Google Sheet at this time.",
+          message: res.message || "Could not save scorecard at this time.",
         });
       }
     }).catch((err) => {
@@ -130,7 +130,7 @@ export const ResultView: React.FC<ResultViewProps> = ({
   }, [submission.id, submission.isSubmittedOnNetwork]);
 
   const handleManualSheetSync = async () => {
-    setSheetSyncState({ status: "syncing", message: "Pushing submission to Google Sheet..." });
+    setSheetSyncState({ status: "syncing", message: "Pushing submission..." });
     try {
       const res = await sendSubmissionToGoogleSheet(
         submission,
@@ -139,13 +139,13 @@ export const ResultView: React.FC<ResultViewProps> = ({
       if (res.success) {
         setSheetSyncState({
           status: "success",
-          message: res.message || "Exam scorecard saved successfully in Google Sheet!",
+          message: res.message || "Exam scorecard saved successfully!",
           rowNumber: res.data?.rowNumber,
         });
       } else {
         setSheetSyncState({
           status: "error",
-          message: res.message || "Failed to record scorecard in Google Sheet.",
+          message: res.message || "Failed to record scorecard.",
         });
       }
     } catch (e: any) {
@@ -266,7 +266,7 @@ export const ResultView: React.FC<ResultViewProps> = ({
                   Successfully Submitted!
                 </h2>
                 <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-200 text-emerald-900 border border-emerald-300">
-                  ✓ Recorded in Google Sheet
+                  ✓ Recorded Successfully
                 </span>
                 <span className="text-[11px] font-mono text-emerald-800 bg-white/80 px-2 py-0.5 rounded border border-emerald-200 font-semibold">
                   Attempt {submission.attemptNumber || 1} of 2
@@ -281,7 +281,7 @@ export const ResultView: React.FC<ResultViewProps> = ({
           <div className="flex items-center gap-3 shrink-0 self-end md:self-center bg-white/70 px-4 py-2 rounded-xl border border-emerald-200">
             <CheckCircle2 className="w-5 h-5 text-emerald-700 shrink-0" />
             <div className="text-xs">
-              <p className="font-bold text-emerald-950">Google Sheet Logged</p>
+              <p className="font-bold text-emerald-950">Record Logged</p>
               <p className="text-emerald-700 font-semibold text-[11px] flex items-center gap-1">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" />
                 Row Confirmed
@@ -366,11 +366,11 @@ export const ResultView: React.FC<ResultViewProps> = ({
               <div className="flex items-center gap-2 flex-wrap">
                 <h3 className="text-sm font-bold">
                   {sheetSyncState.status === "success"
-                    ? "Google Sheet Record Confirmed"
+                    ? "Record Confirmed"
                     : sheetSyncState.status === "syncing"
-                    ? "Syncing Record to Google Sheet..."
+                    ? "Syncing Record..."
                     : sheetSyncState.status === "error"
-                    ? "Google Sheet Synchronization Alert"
+                    ? "Synchronization Alert"
                     : "Ready to Synchronize"}
                 </h3>
                 <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full border font-bold ${
@@ -392,7 +392,7 @@ export const ResultView: React.FC<ResultViewProps> = ({
                 </span>
               </div>
               <p className="text-xs mt-0.5 opacity-90 leading-relaxed">
-                {sheetSyncState.message || "Candidate identity, phone, department, section, and quiz score are stored in Google Sheets."}
+                {sheetSyncState.message || "Candidate identity, phone, department, section, and quiz score are stored securely."}
               </p>
             </div>
           </div>
@@ -466,7 +466,7 @@ export const ResultView: React.FC<ResultViewProps> = ({
                     Room Assigned
                   </span>
                   <span className="font-bold text-amber-900">
-                    Room {submission.roomNumber || "B2LG2.8"}
+                    Room {submission.roomNumber || "B3LG2.8"}
                   </span>
                 </div>
               </div>

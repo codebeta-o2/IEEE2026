@@ -465,7 +465,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
                     className="mt-1 w-4 h-4 text-blue-600 rounded-sm border-slate-300 focus:ring-blue-500 cursor-pointer"
                   />
                   <span className="text-xs text-slate-600 group-hover:text-slate-900 leading-relaxed">
-                    I verify that my candidate details (Phone, Department, Section, Roll No, and Enrollment Number) are accurate and that all examination responses will be securely recorded in the official Google Sheet.
+                    I verify that my candidate details (Phone, Department, Section, Roll No, and Enrollment Number) are accurate and that all examination responses will be securely recorded.
                   </span>
                 </label>
               </div>
@@ -565,7 +565,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
                 <div>
                   <h4 className="text-xs font-bold text-blue-900">Strictly 2 Attempts Per Person</h4>
                   <p className="text-xs text-blue-800 mt-0.5 leading-relaxed">
-                    <strong>Enrollment Number *</strong> serves as the Primary Key. All records are sent to Google Sheet.
+                    <strong>Enrollment Number *</strong> serves as the Primary Key.
                   </p>
                 </div>
               </div>

@@ -208,7 +208,7 @@ export default function App() {
           totalDurationSeconds: TOTAL_DURATION_SECONDS,
           submissionReason: reason,
           toggleCount: toggleCountRef.current,
-          roomNumber: assignedRoomRef.current || "B2LG2.8",
+          roomNumber: assignedRoomRef.current || "B3LG2.8",
           pythonGameSolved: true,
         };
 
@@ -257,7 +257,7 @@ export default function App() {
           percentage: data.submission?.percentage ?? 0,
           breakdown: normalizedBreakdown,
           attemptNumber: attemptNum,
-          roomNumber: assignedRoomRef.current || "B2LG2.8",
+          roomNumber: assignedRoomRef.current || "B3LG2.8",
           pythonGameSolved: true,
           isSubmittedOnNetwork: true,
           networkSubmittedAt: data.submission?.networkSubmittedAt || new Date().toISOString(),
@@ -272,7 +272,7 @@ export default function App() {
         if (data.sheetResult?.success) {
           setSheetSuccessData({
             rowNumber: data.sheetResult.data?.rowNumber,
-            message: data.sheetResult.message || "Successfully recorded in Google Sheet",
+            message: data.sheetResult.message || "Record saved successfully",
           });
           setSheetSuccessModalOpen(true);
         }
@@ -309,7 +309,7 @@ export default function App() {
       submittedAt: new Date().toISOString(),
       isSubmittedOnNetwork: false,
       attemptNumber: attemptNum,
-      roomNumber: assignedRoomRef.current || "B2LG2.8",
+      roomNumber: assignedRoomRef.current || "B3LG2.8",
       pythonGameSolved: true,
       breakdown: fallbackBreakdown,
     };
@@ -346,7 +346,7 @@ export default function App() {
         totalDurationSeconds: TOTAL_DURATION_SECONDS,
         submissionReason: currentSub.submissionReason,
         toggleCount: currentSub.toggleCount,
-        roomNumber: currentSub.roomNumber || assignedRoomRef.current || "B2LG2.8",
+        roomNumber: currentSub.roomNumber || assignedRoomRef.current || "B3LG2.8",
         pythonGameSolved: true,
       };
 
@@ -377,7 +377,7 @@ export default function App() {
         percentage: data.submission?.percentage ?? currentSub.percentage,
         breakdown: normalizedBreakdown,
         attemptNumber: data.submission?.attemptNumber || currentSub.attemptNumber || 1,
-        roomNumber: assignedRoomRef.current || "B2LG2.8",
+        roomNumber: assignedRoomRef.current || "B3LG2.8",
         pythonGameSolved: true,
         isSubmittedOnNetwork: true,
         networkSubmittedAt: new Date().toISOString(),
@@ -388,7 +388,7 @@ export default function App() {
       if (data.sheetResult?.success) {
         setSheetSuccessData({
           rowNumber: data.sheetResult.data?.rowNumber,
-          message: data.sheetResult.message || "Successfully recorded in Google Sheet",
+          message: data.sheetResult.message || "Record saved successfully",
         });
         setSheetSuccessModalOpen(true);
       }
@@ -475,7 +475,7 @@ export default function App() {
     setStep("PYTHON_GAME");
   };
 
-  // Stage 3: Python Challenge Solved -> Shows Room "B2LG2.8", transitions to Scan QR "IEEE-EXAM-START"
+  // Stage 3: Python Challenge Solved -> Shows Room "B3LG2.8", transitions to Scan QR "IEEE-EXAM-START"
   const handlePythonGameSolved = (room: string) => {
     setAssignedRoom(room);
     setIsPythonSolved(true);
@@ -597,10 +597,10 @@ export default function App() {
           <div
             id="badge-server-sync"
             className="text-xs text-emerald-300 flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-800 border border-emerald-900/50"
-            title="Google Sheet integration active"
+            title="Sync integration active"
           >
             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="hidden sm:inline">Google Sheet Synced</span>
+            <span className="hidden sm:inline">Sync confirmed</span>
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           </div>
 
@@ -649,7 +649,7 @@ export default function App() {
           />
         )}
 
-        {/* Step 4: Scan QR "IEEE-EXAM-START" inside Room B2LG2.8 */}
+        {/* Step 4: Scan QR "IEEE-EXAM-START" inside Room B3LG2.8 */}
         {step === "SCAN_EXAM_QR" && student && (
           <QrCodeScannerView
             targetCode="IEEE-EXAM-START"

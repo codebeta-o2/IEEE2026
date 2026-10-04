@@ -180,7 +180,7 @@ export async function sendSubmissionToGoogleSheet(
       body: JSON.stringify({
         submission: {
           ...submission,
-          roomNumber: submission.roomNumber || "B2LG2.8",
+          roomNumber: submission.roomNumber || "B3LG2.8",
           pythonGameSolved: true,
         },
         attemptNumber,

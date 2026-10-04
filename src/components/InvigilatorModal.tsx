@@ -168,7 +168,7 @@ export const InvigilatorModal: React.FC<InvigilatorModalProps> = ({
                       <div className="text-xs text-slate-500">
                         <span>{sub.student.department} • {sub.student.section}</span>
                         {sub.student.phone && <span> • 📞 {sub.student.phone}</span>}
-                        <span> • Room {sub.roomNumber || "B2LG2.8"}</span>
+                        <span> • Room {sub.roomNumber || "B3LG2.8"}</span>
                         <span className="mx-1.5">•</span>
                         <span>{new Date(sub.submittedAt).toLocaleTimeString()}</span>
                       </div>

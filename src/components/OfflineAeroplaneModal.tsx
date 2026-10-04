@@ -54,7 +54,7 @@ export const OfflineAeroplaneModal: React.FC<OfflineAeroplaneModalProps> = ({
         <span className="text-slate-300">→</span>
         <div className="flex items-center gap-1.5 text-emerald-600 font-bold">
           <CheckCircle2 className="w-4 h-4" />
-          <span>4. Room B2LG2.8 QR</span>
+          <span>4. Room B3LG2.8 QR</span>
         </div>
         <span className="text-slate-300">→</span>
         <div className="flex items-center gap-1.5 text-amber-600 font-bold">
@@ -94,7 +94,7 @@ export const OfflineAeroplaneModal: React.FC<OfflineAeroplaneModalProps> = ({
             </div>
             <div>
               <span className="text-slate-400 block text-[10px] uppercase font-bold">Assigned Room</span>
-              <span className="font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-md font-mono">B2LG2.8</span>
+              <span className="font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-md font-mono">B3LG2.8</span>
             </div>
           </div>
 

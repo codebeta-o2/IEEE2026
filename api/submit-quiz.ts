@@ -28,7 +28,7 @@ export default async function handler(req: any, res: any) {
       totalDurationSeconds = 1200,
       submissionReason = "MANUAL_SUBMISSION",
       toggleCount = 0,
-      roomNumber = "B2LG2.8",
+      roomNumber = "B3LG2.8",
       pythonGameSolved = true,
     } = req.body || {};
 
@@ -117,7 +117,7 @@ export default async function handler(req: any, res: any) {
       isSubmittedOnNetwork: true,
       networkSubmittedAt: submittedAt,
       attemptNumber: 1,
-      roomNumber: String(roomNumber || "B2LG2.8"),
+      roomNumber: String(roomNumber || "B3LG2.8"),
       pythonGameSolved: Boolean(pythonGameSolved),
       breakdown,
     };
@@ -132,7 +132,7 @@ export default async function handler(req: any, res: any) {
         totalQuestions,
         percentage,
         attemptNumber: 1,
-        roomNumber: String(roomNumber || "B2LG2.8"),
+        roomNumber: String(roomNumber || "B3LG2.8"),
         pythonGameSolved: true,
         submissionReason,
         timeSpentSeconds,

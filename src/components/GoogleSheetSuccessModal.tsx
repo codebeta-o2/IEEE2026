@@ -115,7 +115,7 @@ export const GoogleSheetSuccessModal: React.FC<GoogleSheetSuccessModalProps> = (
               </div>
               <div className="bg-white p-2 rounded-lg border border-slate-200/80">
                 <span className="text-[10px] uppercase font-bold text-slate-400 block">Room Assigned</span>
-                <span className="font-bold text-amber-700 font-mono block">Room B2LG2.8</span>
+                <span className="font-bold text-amber-700 font-mono block">Room B3LG2.8</span>
               </div>
             </div>
           </div>
@@ -144,7 +144,7 @@ export const GoogleSheetSuccessModal: React.FC<GoogleSheetSuccessModalProps> = (
               </div>
 
               <span className="text-xs font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-lg">
-                ✓ Recorded in Google Sheet
+                ✓ Recorded Successfully
               </span>
             </div>
 

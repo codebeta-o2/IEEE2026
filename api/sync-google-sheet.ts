@@ -29,7 +29,7 @@ export default async function handler(req: any, res: any) {
       totalQuestions: submission.totalQuestions,
       percentage: submission.percentage,
       attemptNumber,
-      roomNumber: submission.roomNumber || "B2LG2.8",
+      roomNumber: submission.roomNumber || "B3LG2.8",
       pythonGameSolved: true,
       submissionReason: submission.submissionReason,
       timeSpentSeconds: submission.timeSpentSeconds,

@@ -22,7 +22,7 @@
  * Captured Fields:
  * - Primary Key: "Enrollment Number *"
  * - Phone Number, Department, Section
- * - Assigned Room: "B2LG2.8"
+ * - Assigned Room: "B3LG2.8"
  * - Python Qualification Status
  * - Score, Accuracy %, Submission Reason, Time Spent
  * =========================================================================
@@ -264,7 +264,7 @@ function processSubmission(data) {
     const department = String(student.department || data.department || "").trim();
     const section = String(student.section || data.section || "").trim();
     const email = String(student.email || data.email || "").trim();
-    const roomNumber = String(data.roomNumber || student.roomNumber || "B2LG2.8").trim();
+    const roomNumber = String(data.roomNumber || student.roomNumber || "B3LG2.8").trim();
     const pythonGame = data.pythonGameSolved ? "Passed" : "Verified";
     
     const score = Number(data.score !== undefined ? data.score : 0);

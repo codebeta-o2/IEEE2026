@@ -126,7 +126,7 @@ function doGet(e) {
     
     if (action === "ping") {
       return ContentService.createTextOutput(JSON.stringify({
-        status: "ok", message: "Google Sheet Exam API is connected and online",
+        status: "ok", message: "Exam API is connected and online",
         sheetName: SHEET_NAME, maxAttemptsPerStudent: MAX_ATTEMPTS,
         timestamp: new Date().toISOString()
       })).setMimeType(ContentService.MimeType.JSON);
@@ -219,7 +219,7 @@ function processSubmission(data) {
     else if (pct > 75) sheet.getRange(newLastRow, 11, 1, 2).setBackground("#dcfce7");
 
     return ContentService.createTextOutput(JSON.stringify({
-      status: "success", message: "Exam record successfully saved to Google Sheet!",
+      status: "success", message: "Exam record successfully saved!","}
       sheetName: SHEET_NAME, rowNumber: newLastRow, attemptNumber: attemptNumber,
       maxAttempts: MAX_ATTEMPTS, percentage: pct, giftAwarded: gift
     })).setMimeType(ContentService.MimeType.JSON);
@@ -274,7 +274,7 @@ export const GoogleSheetModal: React.FC<GoogleSheetModalProps> = ({
   const handleSaveUrl = () => {
     saveGoogleSheetUrl(url);
     flushPendingSubmissions();
-    setActionFeedback("Google Sheet Web App URL saved successfully!");
+    setActionFeedback("Web App URL saved successfully!");
     setTimeout(() => setActionFeedback(null), 4000);
   };
 
@@ -312,7 +312,7 @@ export const GoogleSheetModal: React.FC<GoogleSheetModalProps> = ({
     try {
       const res = await syncAllServerSubmissions(url);
       if (res.success) {
-        setActionFeedback(`Successfully synced ${res.syncedCount} of ${res.total} submission(s) to your Google Sheet! Check the "Exam_Submissions" tab.`);
+        setActionFeedback(`Successfully synced ${res.syncedCount} of ${res.total} submission(s).`);
       } else {
         setActionFeedback(`Sync encountered an error: ${res.message}`);
       }
@@ -354,7 +354,7 @@ export const GoogleSheetModal: React.FC<GoogleSheetModalProps> = ({
 
       const res = await sendSubmissionToGoogleSheet(dummySubmission, "IEEE Ceramic Coffee Mug", 1);
       if (res.success) {
-        setActionFeedback(`Success! Sample test row was written to your Google Sheet (Row #${res.data?.rowNumber || "New"}). Open your Google Sheet to verify.`);
+        setActionFeedback(`Success! Sample test row was written successfully (Row #${res.data?.rowNumber || "New"}).`);
       } else {
         setActionFeedback(`Failed to write test row: ${res.message}`);
       }
@@ -382,7 +382,7 @@ export const GoogleSheetModal: React.FC<GoogleSheetModalProps> = ({
             </div>
             <div>
               <h3 className="font-bold text-base flex items-center gap-2">
-                Google Sheet & Apps Script Integration
+                Apps Script Integration
               </h3>
               <p className="text-xs text-slate-300">
                 Automatic exam responses sync · Primary Key: <strong>Enrollment Number</strong> · Max 2 Attempts
@@ -580,7 +580,7 @@ export const GoogleSheetModal: React.FC<GoogleSheetModalProps> = ({
                   <div className="p-3 bg-white border border-slate-200 rounded-xl flex items-start gap-3">
                     <span className="w-6 h-6 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center shrink-0 text-xs">1</span>
                     <div>
-                      <h5 className="font-bold text-slate-900">Create a New Google Sheet</h5>
+                      <h5 className="font-bold text-slate-900">Create a New Sheet</h5>
                       <p className="text-slate-600 text-[11px] mt-0.5">
                         Open <a href="https://sheets.new" target="_blank" rel="noreferrer" className="text-blue-600 underline font-medium">sheets.new</a> in your browser.
                       </p>
@@ -643,7 +643,7 @@ export const GoogleSheetModal: React.FC<GoogleSheetModalProps> = ({
               <div className="p-4 bg-amber-50 border border-amber-300 rounded-xl">
                 <h4 className="font-bold text-amber-900 text-sm flex items-center gap-2">
                   <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
-                  Why is the submitted data not visible in your Google Sheet?
+                  Why is the submitted data not visible yet?
                 </h4>
                 <p className="text-amber-800 text-xs mt-1">
                   Here are the 4 most common causes and how to fix them in 30 seconds:
@@ -655,10 +655,10 @@ export const GoogleSheetModal: React.FC<GoogleSheetModalProps> = ({
                 <div className="p-3.5 bg-white border border-slate-200 rounded-xl space-y-1.5">
                   <div className="flex items-center gap-2">
                     <span className="w-5 h-5 rounded-full bg-amber-500 text-white font-bold flex items-center justify-center text-xs">1</span>
-                    <h5 className="font-bold text-slate-900">Check the Tab at the Bottom of Your Google Sheet</h5>
+                    <h5 className="font-bold text-slate-900">Check the Tab at the Bottom of Your Sheet</h5>
                   </div>
                   <p className="text-slate-600 text-[11px] leading-relaxed">
-                    By default, Google Sheets opens on the tab named <strong>"Sheet1"</strong>. The Apps Script writes submissions to the tab named <strong className="text-blue-700 font-mono">"Exam_Submissions"</strong>.
+                    By default, the spreadsheet opens on the tab named <strong>"Sheet1"</strong>. The Apps Script writes submissions to the tab named <strong className="text-blue-700 font-mono">"Exam_Submissions"</strong>.
                   </p>
                   <p className="text-slate-600 text-[11px] font-medium bg-slate-50 p-2 rounded-lg border border-slate-200">
                     👉 Look at the bottom navigation tabs of your spreadsheet and click on the <strong>"Exam_Submissions"</strong> tab to see your recorded candidates!
@@ -823,7 +823,7 @@ export const GoogleSheetModal: React.FC<GoogleSheetModalProps> = ({
         {/* Footer */}
         <div className="bg-slate-100 px-5 py-3 border-t border-slate-200 flex items-center justify-between">
           <span className="text-[11px] text-slate-500">
-            {url ? "Sync target active" : "No Google Sheet URL connected yet"}
+            {url ? "Sync target active" : "No sync URL connected yet"}
           </span>
           <button
             type="button"

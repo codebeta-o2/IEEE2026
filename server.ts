@@ -194,7 +194,7 @@ async function startServer() {
         totalQuestions: submission.totalQuestions,
         percentage: submission.percentage,
         attemptNumber: attNum,
-        roomNumber: submission.roomNumber || "B2LG2.8",
+        roomNumber: submission.roomNumber || "B3LG2.8",
         pythonGameSolved: submission.pythonGameSolved !== false,
         submissionReason: submission.submissionReason,
         timeSpentSeconds: submission.timeSpentSeconds,
@@ -498,7 +498,7 @@ async function startServer() {
         isSubmittedOnNetwork: true,
         networkSubmittedAt: new Date().toISOString(),
         attemptNumber,
-        roomNumber: String(req.body.roomNumber || "B2LG2.8"),
+        roomNumber: String(req.body.roomNumber || "B3LG2.8"),
         pythonGameSolved: true,
         breakdown,
       };

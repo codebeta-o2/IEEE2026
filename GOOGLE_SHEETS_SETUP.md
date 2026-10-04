@@ -12,8 +12,8 @@ This guide explains how to connect your IEEE Proctored Examination System direct
    - Registration with Full Name, Phone Number, Department, Section, Roll Number, and Enrollment Number.
    - Scan Stage 1 QR code: `IEEE-PYTHON-GAME` to unlock the Python logic challenge.
    - Solve Python Code Block Assembly problem.
-   - Reveal assigned Room Number: **`B2LG2.8`**.
-   - Scan Stage 2 QR code: `IEEE-EXAM-START` inside Room B2LG2.8 to launch the timed offline exam.
+   - Reveal assigned Room Number: **`B3LG2.8`**.
+   - Scan Stage 2 QR code: `IEEE-EXAM-START` inside Room B3LG2.8 to launch the timed offline exam.
 4. **Offline Proctoring**:
    - The MCQ exam runs in offline mode.
    - Connecting to mobile data or Wi-Fi during the exam triggers automatic auto-submission.
@@ -63,7 +63,7 @@ The Apps Script will automatically format the sheet with frozen, styled navy-blu
 | G | Department | Candidate department (user input) |
 | H | Section | Candidate section (user input) |
 | I | Email | Student email address |
-| J | Room Assigned | `B2LG2.8` |
+| J | Room Assigned | `B3LG2.8` |
 | K | Python Game | Status of code assembly qualification (`Passed`) |
 | L | Score | Correct answers count |
 | M | Total Questions | Total number of questions (20) |
