@@ -43,6 +43,7 @@ export const QrCodeScannerView: React.FC<QrCodeScannerViewProps> = ({
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const animFrameIdRef = useRef<number | null>(null);
+  const cameraRequestIdRef = useRef(0);
 
   const handleValidCodeScanned = useCallback((code: string) => {
     if (isSuccessMatched) return;
@@ -55,8 +56,12 @@ export const QrCodeScannerView: React.FC<QrCodeScannerViewProps> = ({
         streamRef.current.getTracks().forEach((track) => track.stop());
         streamRef.current = null;
       }
+      if (videoRef.current) {
+        videoRef.current.srcObject = null;
+      }
       if (animFrameIdRef.current) {
         cancelAnimationFrame(animFrameIdRef.current);
+        animFrameIdRef.current = null;
       }
       setTimeout(() => {
         onSuccess(clean);
@@ -82,7 +87,7 @@ export const QrCodeScannerView: React.FC<QrCodeScannerViewProps> = ({
 
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
       const code = jsQR(imageData.data, imageData.width, imageData.height, {
-        inversionAttempts: "dontInvert",
+        inversionAttempts: "attemptBoth",
       });
 
       if (code && code.data) {
@@ -94,56 +99,77 @@ export const QrCodeScannerView: React.FC<QrCodeScannerViewProps> = ({
     animFrameIdRef.current = requestAnimationFrame(tickScan);
   }, [handleValidCodeScanned, isSuccessMatched]);
 
-  // Request & Start camera stream
-  const requestCameraAccess = async () => {
-    setErrorMessage(null);
-    setPermissionDeniedHelp(false);
-    setIsRequestingCamera(true);
-
-    try {
-      if (streamRef.current) {
-        streamRef.current.getTracks().forEach((t) => t.stop());
-      }
-
-      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        throw new Error("Camera API not supported in this browser or environment");
-      }
-
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "environment", width: { ideal: 640 }, height: { ideal: 480 } },
-        audio: false,
-      });
-
-      streamRef.current = stream;
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        videoRef.current.setAttribute("playsinline", "true");
-        await videoRef.current.play();
-        setHasCameraPermission(true);
-        setCameraActive(true);
-        animFrameIdRef.current = requestAnimationFrame(tickScan);
-      }
-    } catch (err: any) {
-      console.warn("Camera access request rejected or not available:", err);
-      setHasCameraPermission(false);
-      setCameraActive(false);
-      setPermissionDeniedHelp(true);
-      setErrorMessage("Camera access was not granted or is blocked. Please allow camera permissions in your browser or use Quick Scan below.");
-    } finally {
-      setIsRequestingCamera(false);
-    }
-  };
-
   const stopCamera = () => {
+    cameraRequestIdRef.current += 1;
     if (streamRef.current) {
-      streamRef.current.getTracks().forEach((t) => t.stop());
+      streamRef.current.getTracks().forEach((track) => track.stop());
       streamRef.current = null;
+    }
+    if (videoRef.current) {
+      videoRef.current.srcObject = null;
     }
     if (animFrameIdRef.current) {
       cancelAnimationFrame(animFrameIdRef.current);
       animFrameIdRef.current = null;
     }
     setCameraActive(false);
+  };
+
+  // Request & Start camera stream
+  const requestCameraAccess = async () => {
+    stopCamera();
+    const requestId = ++cameraRequestIdRef.current;
+    setErrorMessage(null);
+    setPermissionDeniedHelp(false);
+    setIsRequestingCamera(true);
+
+    try {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        throw new Error("Camera API not supported in this browser or environment");
+      }
+
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: { ideal: "environment" }, width: { ideal: 1280 }, height: { ideal: 720 } },
+        audio: false,
+      });
+
+      if (requestId !== cameraRequestIdRef.current || !videoRef.current) {
+        stream.getTracks().forEach((track) => track.stop());
+        return;
+      }
+
+      streamRef.current = stream;
+      videoRef.current.srcObject = stream;
+      videoRef.current.setAttribute("playsinline", "true");
+      await videoRef.current.play();
+
+      if (requestId !== cameraRequestIdRef.current) {
+        stream.getTracks().forEach((track) => track.stop());
+        return;
+      }
+
+      setHasCameraPermission(true);
+      setCameraActive(true);
+      animFrameIdRef.current = requestAnimationFrame(tickScan);
+    } catch (err: unknown) {
+      if (requestId !== cameraRequestIdRef.current) return;
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => track.stop());
+        streamRef.current = null;
+      }
+      if (videoRef.current) {
+        videoRef.current.srcObject = null;
+      }
+      console.warn("Camera access request rejected or not available:", err);
+      setHasCameraPermission(false);
+      setCameraActive(false);
+      setPermissionDeniedHelp(true);
+      setErrorMessage("Camera access was not granted or is blocked. Please allow camera permissions in your browser or manually enter the QR code below.");
+    } finally {
+      if (requestId === cameraRequestIdRef.current) {
+        setIsRequestingCamera(false);
+      }
+    }
   };
 
   useEffect(() => {
@@ -305,33 +331,31 @@ export const QrCodeScannerView: React.FC<QrCodeScannerViewProps> = ({
                   </p>
                   {permissionDeniedHelp && (
                     <p className="text-xs text-amber-800 font-medium mt-1.5 bg-amber-100/80 p-2 rounded-lg border border-amber-300">
-                      💡 Tip: If camera access was blocked, click the camera icon in your browser address bar to allow it, or use the <strong>Quick Scan</strong> button below.
+                      💡 Tip: If camera access was blocked, click the camera icon in your browser address bar to allow it, or manually enter the QR code below.
                     </p>
                   )}
                 </div>
               </div>
 
-              {!cameraActive && (
-                <button
-                  type="button"
-                  id="btn-request-camera-permission"
-                  onClick={requestCameraAccess}
-                  disabled={isRequestingCamera}
-                  className="px-5 py-3 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold text-xs rounded-xl shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0"
-                >
-                  {isRequestingCamera ? (
-                    <>
-                      <RotateCw className="w-4 h-4 animate-spin" />
-                      <span>Requesting Access...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Camera className="w-4 h-4" />
-                      <span>Give Camera Access & Open Scanner</span>
-                    </>
-                  )}
-                </button>
-              )}
+              <button
+                type="button"
+                id="btn-reload-qr-scanner"
+                onClick={requestCameraAccess}
+                disabled={isRequestingCamera || isSuccessMatched}
+                className="px-5 py-3 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 disabled:opacity-60 text-white font-bold text-xs rounded-xl shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0"
+              >
+                {isRequestingCamera ? (
+                  <>
+                    <RotateCw className="w-4 h-4 animate-spin" />
+                    <span>Starting Scanner...</span>
+                  </>
+                ) : (
+                  <>
+                    {cameraActive ? <RotateCw className="w-4 h-4" /> : <Camera className="w-4 h-4" />}
+                    <span>{cameraActive ? "Reload QR Scanner" : "Start / Reload QR Scanner"}</span>
+                  </>
+                )}
+              </button>
             </div>
           </div>
 
@@ -357,17 +381,9 @@ export const QrCodeScannerView: React.FC<QrCodeScannerViewProps> = ({
                 <div>
                   <h4 className="font-bold text-white text-sm">Camera Not Active</h4>
                   <p className="text-xs text-slate-400 mt-1 max-w-xs mx-auto">
-                    Click <strong>"Give Camera Access"</strong> above to turn on camera, or use the simulated Quick Scan below.
+                    Use the scanner control above to turn on or reload your camera.
                   </p>
                 </div>
-                <button
-                  type="button"
-                  onClick={requestCameraAccess}
-                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-xl inline-flex items-center gap-1.5 cursor-pointer"
-                >
-                  <Camera className="w-3.5 h-3.5" />
-                  <span>Turn On Camera</span>
-                </button>
               </div>
             )}
 
